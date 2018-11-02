@@ -1,0 +1,21 @@
+;
+; Kermit for Windows
+; 32-bit Cleanup file
+;
+
+[Main]
+Mode: Stealth
+SetVar: AppTitle = Kermit for Windows Cleanup
+GetRegVar: DestDir = HKEY_LOCAL_MACHINE, Software\WDTech\Kermit\0.85, Path
+
+[Files]
+DelFile: %DESTDIR%\Setup.exe
+DelFile: %DESTDIR%\Remove.scf
+DelDir: %DESTDIR%\
+
+[Reg]
+DelKey: HKEY_LOCAL_MACHINE, Software\WDTech\Kermit\0.85
+
+[Files]
+DelFile: %SRCDIR%\KWRemove.exe, Delay
+DelFile: %SRCDIR%\KWRemove.scf, Delay

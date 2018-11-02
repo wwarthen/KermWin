@@ -1,0 +1,24 @@
+;
+; Kermit for Windows
+; 16-bit Cleanup file
+;
+
+[Main]
+Mode: Stealth
+SetVar: AppTitle = Kermit for Windows Cleanup
+GetIniVar: DestDir = Kermit, Path
+
+[Files]
+DelFile: %DESTDIR%\Setup.exe
+DelFile: %DESTDIR%\Remove.scf
+DelDir: %DESTDIR%
+
+[WinIni]
+DelSec: Kermit
+
+[Reg]
+;DelKey: HKEY_LOCAL_MACHINE, Software\Microsoft\Windows\CurrentVersion\Uninstall\Kermit
+
+[Files]
+DelFile: %SRCDIR%\KWRemove.exe, Delay
+DelFile: %SRCDIR%\KWRemove.scf, Delay

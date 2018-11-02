@@ -1,0 +1,91 @@
+/*******************************************************************************
+**                                                                            **
+**                      Kermit for Microsoft Windows                          **
+**                      ----------------------------                          **
+**                              KERMDEC.RC                                    **
+**                                                                            **
+**  Resource file for KermDEC livrary module.                                 **
+**                                                                            **
+*******************************************************************************/
+
+/* INCLUDES ----------------------------------------------------------------- */
+
+#include <windows.h>
+#ifndef _WIN32
+#include <ver.h>
+#endif
+#include "decver.h"
+#include "kermdec.rch"
+#include "winstyle.h"
+
+/* ICONS -------------------------------------------------------------------- */
+
+KermDECIcon ICON kermdec.ico
+                       
+/* VERSION ------------------------------------------------------------------ */
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD
+PRODUCTVERSION VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#ifdef DEBUG
+FILEFLAGS VS_FF_DEBUG
+#else
+FILEFLAGS 0
+#endif
+#ifdef _WIN32
+FILEOS VOS_DOS_WINDOWS32
+#else
+FILEOS VOS_DOS_WINDOWS16
+#endif
+FILETYPE VFT_DLL
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN 
+            VALUE "CompanyName",     "Wayne Warthen" "\0"
+            VALUE "FileDescription", "Kermit for Windows DEC Terminal Emulator" "\0"
+            VALUE "FileVersion",     VER_DESC "\0"
+            VALUE "InternalName",    "KermDEC" "\0"
+            VALUE "LegalCopyright",  "Copyright \251 Wayne Warthen 1990-1995" "\0"
+            VALUE "OriginalFilename","KERMDEC.TRM" "\0"
+            VALUE "ProductName",     "Kermit for Windows" "\0"
+            VALUE "ProductVersion",  VER_DESC "\0"
+        END
+    END
+ 
+    BLOCK "VarFileInfo" 
+    BEGIN 
+        VALUE "Translation", 0x409, 0x4E4
+    END
+END
+
+/* DIALOGUE BOXES ----------------------------------------------------------- */
+
+ABOUTDLGBOX DIALOG DISCARDABLE  36, 36, 184, 127
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About KermDEC"
+FONT 10, "Helv"
+BEGIN
+    ICON            "KermDECIcon",-1,20,16,18,20
+    LTEXT           "",IDD_VERSION,56,8,120,32
+    GROUPBOX        "",-1,8,48,168,44
+    LTEXT           "",IDD_MESSAGE,12,56,160,32
+    DEFPUSHBUTTON   "&Ok",IDD_OK,67,104,50,14
+END
+
+TermDlgBox DIALOG 36, 36, 160, 74
+CAPTION "DEC Terminal Settings"
+STYLE WS_POPUP | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+FONT 8, "Helv"
+BEGIN
+    CONTROL "Auto &New Line",  IDD_NEWLINE,   "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 8, 8,  94, 12
+    CONTROL "&Local Echo",     IDD_LOCALECHO, "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 8, 20, 94, 12
+    CONTROL "Auto Line &Wrap", IDD_LINEWRAP,  "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 8, 32, 94, 12
+
+    DEFPUSHBUTTON "&OK",                IDD_OK,  10, 52, 40, 14, GRPTAB
+    PUSHBUTTON "Cancel",            IDD_CANCEL,  60, 52, 40, 14, GRPTAB
+    PUSHBUTTON "About...",           IDD_ABOUT, 110, 52, 40, 14, GRPTAB
+END

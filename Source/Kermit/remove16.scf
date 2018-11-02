@@ -1,0 +1,63 @@
+;
+; Kermit for Windows
+; 16-bit Remove file
+;
+
+[Main]
+SetVar: AppTitle = Kermit for Windows Removal
+GetIniVar: SrcDir = Kermit, Path
+SetVar: DestDir = %TEMPDIR%
+RunAtExit: %DESTDIR%\KWRemove.exe KWRemove.scf
+
+[Config]
+Confirm: Remove Kermit for Windows and related components?
+
+[Files]
+CopyFile: Setup.exe, KWRemove.exe, Normal
+CopyFile: Cleanup.scf, KWRemove.scf, Normal
+DelFile: %SRCDIR%\Kermit.exe
+DelFile: %SRCDIR%\KermCtrl.exe
+;DelFile: %SRCDIR%\Kermit.hlp
+DelFile: %SRCDIR%\Kermit.ini
+DelFile: %SRCDIR%\Kermit.wri
+DelFile: %SRCDIR%\ReadMe.txt
+DelFile: %SRCDIR%\KeyMap.txt
+DelFile: %SRCDIR%\KermTTY.trm
+DelFile: %SRCDIR%\KermTTY.key
+DelFile: %SRCDIR%\KermANSI.trm
+DelFile: %SRCDIR%\KermANSI.key
+DelFile: %SRCDIR%\KermDEC.trm
+DelFile: %SRCDIR%\KermDEC.key
+DelFile: %SRCDIR%\Cleanup.scf
+
+[WinIni]
+DelKey: Extensions, krm
+DelKey: Extensions, ksc
+
+[ProgMan]
+DeleteItem: Kermit
+DeleteItem: Kermit Automation Tester
+DeleteItem: Kermit Help
+DeleteItem: Kermit Documentation
+DeleteItem: Release Notes
+DeleteItem: Key Mapping Notes
+DeleteItem: Uninstall Kermit
+DeleteGroup: Kermit
+
+[Reg]
+DelKey: HKEY_LOCAL_MACHINE, Software\WDTech\Kermit\0.85
+
+DelKey: HKEY_CLASSES_ROOT, .krm
+DelKey: HKEY_CLASSES_ROOT, krmfile
+DelKey: HKEY_CLASSES_ROOT, .ksc
+DelKey: HKEY_CLASSES_ROOT, kscfile
+DelKey: HKEY_CLASSES_ROOT, .trm
+DelKey: HKEY_CLASSES_ROOT, trmfile
+DelKey: HKEY_CLASSES_ROOT, .key
+DelKey: HKEY_CLASSES_ROOT, keyfile
+
+DelKey: HKEY_CLASSES_ROOT, Kermit.Application
+DelKey: HKEY_CLASSES_ROOT, Kermit.Application.1
+DelKey: HKEY_CLASSES_ROOT, CLSID\{CD322B22-0D7B-11D0-B92A-00A024A6F710}
+DelKey: HKEY_CLASSES_ROOT, TypeLib\{CD322B20-0D7B-11D0-B92A-00A024A6F710}
+DelKey: HKEY_CLASSES_ROOT, Interface\{CD322B21-0D7B-11D0-B92A-00A024A6F710}

@@ -1,0 +1,25 @@
+LIBRARY     KermTTY
+EXETYPE     WINDOWS
+
+DESCRIPTION 'Kermit Teletype Terminal Emulation Module'
+     
+STUB        'WINSTUB.EXE'
+     
+CODE        MOVEABLE DISCARDABLE PRELOAD
+DATA        MOVEABLE SINGLE PRELOAD
+
+SEGMENTS    INIT_TEXT       PRELOAD
+            _TEXT           PRELOAD
+            WEP_TEXT        FIXED PRELOAD
+     
+HEAPSIZE    4096
+     
+EXPORTS
+            WEP             @1      RESIDENTNAME
+            SetupTerm       @100
+            WriteTerm       @101
+            OpenTerm        @102
+            CloseTerm       @103
+            GetTermConfig   @105
+            ProcessTermChar @106
+            ProcessTermKey  @107

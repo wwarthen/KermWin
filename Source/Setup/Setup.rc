@@ -1,0 +1,100 @@
+/*******************************************************************************
+**                                                                            **
+**                      Kermit for Microsoft Windows                          **
+**                      ----------------------------                          **
+**                               SETUP.RC                                     **
+**                                                                            **
+**  This is the primary MS Windows resource file for the application.         **
+**                                                                            **
+*******************************************************************************/
+
+/* INCLUDES ----------------------------------------------------------------- */
+
+#include <windows.h>
+#include <dlgs.h>
+#ifndef _WIN32
+#include <ver.h>
+#endif
+#include "setupver.h"
+#include "setupres.h"
+#include "winstyle.h"
+
+/* ICONS -------------------------------------------------------------------- */
+
+SetupIcon ICON setup.ico
+UnSetupIcon ICON unsetup.ico
+                       
+/* VERSION ------------------------------------------------------------------ */
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD
+PRODUCTVERSION VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#ifdef DEBUG
+FILEFLAGS VS_FF_DEBUG
+#else
+FILEFLAGS 0
+#endif
+#ifdef _WIN32
+FILEOS VOS_NT_WINDOWS32
+#else
+FILEOS VOS_DOS_WINDOWS16
+#endif
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN 
+            VALUE "CompanyName",     "Wayne Warthen" "\0"
+            VALUE "FileDescription", "Kermit for Windows Setup" "\0"
+            VALUE "FileVersion",     VER_DESC "\0"
+            VALUE "InternalName",    "Setup" "\0"
+            VALUE "LegalCopyright",  "Copyright \251 Wayne Warthen 1990-1995" "\0"
+            VALUE "OriginalFilename","SETUP.EXE" "\0"
+            VALUE "ProductName",     "Kermit for Windows Setup" "\0"
+            VALUE "ProductVersion",  VER_DESC "\0"
+        END
+    END
+ 
+    BLOCK "VarFileInfo" 
+    BEGIN 
+        VALUE "Translation", 0x409, 0x4E4
+    END
+END
+
+/* DIALOGS ------------------------------------------------------------------ */
+
+ABOUTDLGBOX DIALOG DISCARDABLE  36, 36, 184, 127
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Kermit Setup"
+FONT 10, "Helv"
+BEGIN
+    ICON            "SetupIcon",-1,20,16,18,20
+    LTEXT           "",IDD_VERSION,56,8,120,32
+    GROUPBOX        "",-1,8,48,168,44
+    LTEXT           "",IDD_MESSAGE,12,56,160,32
+    DEFPUSHBUTTON   "&Ok",IDD_OK,67,104,50,14
+END
+
+DIRDLGBOX DIALOG DISCARDABLE  0, 0, 185, 70
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Setup Directory"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Directory:",IDC_PROMPT,8,8,168,12
+    EDITTEXT        IDC_DIR,8,20,168,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,34,50,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,100,50,50,14
+END
+
+PROGRESSDLGBOX DIALOG DISCARDABLE  36, 72, 186, 78
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Progress"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Cancel",IDCANCEL,68,58,50,14
+    CTEXT           "",IDC_ACTION,4,8,176,8
+    CTEXT           "",IDC_SCALE,4,28,176,8
+END

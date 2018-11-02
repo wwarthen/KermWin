@@ -1,0 +1,40 @@
+
+                      Kermit for Microsoft Windows
+                      ----------------------------
+                              Beware File
+
+
+Windows Multitasking
+--------------------
+
+This item applies ONLY to Windows for DOS (not Windows NT):
+
+Due to the fact that MS Windows implements COOPERATIVE multitasking, it is
+possible for a not so nice program to steal Windows' attention for an
+inordinate amount of time.  If this happens, an active file transfer
+may be aborted by the remote side because it is not receiving any responses.
+
+Certain actions inside the windows environment can cause the same problem.
+Multitasking is suspended any time a system modal dialog box is on the screen.
+
+Fortunately, you should rarely encounter these problems during normal use.
+
+
+Setting Communications Configuration
+------------------------------------
+
+It is very important to set your communications options before attempting
+to connect to another KERMIT.  Use Configuration:Communications to set
+these options.
+
+
+Communicating with IBM Mainframes
+---------------------------------
+
+This program fully supports commuications and the Kermit protocol with
+an IBM (EBCDIC) Mainframe Host.  However, you must be sure
+to configure all of the communications options correctly.  Also, the
+ASCII to EBCDIC translations performed by the mainframe side must be
+correct.  If you are unsure of the correctness of the mainframe
+KERMIT's installation, try a different version of KERMIT on your
+PC (the standard MS-DOS version is fine).

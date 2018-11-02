@@ -1,0 +1,3 @@
+Kermit for Windows provides communications services for MS Windows 9X/NT
+with robust DEC VT-102 terminal emulation and enhanced Kermit file transfers.
+Both serial (modem) and tcp/ip (telnet) connectivity is supported.

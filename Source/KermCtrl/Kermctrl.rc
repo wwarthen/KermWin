@@ -1,0 +1,26 @@
+#include <windows.h>
+#include "kermctrl.h"
+
+ControlIcon icon kermctrl.ico
+
+ControlMenu MENU
+BEGIN
+    POPUP        "&Control Menu"
+    BEGIN
+        MENUITEM "&CreateKermit",  IDM_CREATEKERMIT
+        MENUITEM "&SetVisible",   IDM_SETVISIBLE 
+        MENUITEM "&SetInvisible",   IDM_SETINVISIBLE
+        MENUITEM "&GetKermitMessage",   IDM_GETKERMITMESSAGE
+        MENUITEM "&InvokeSayHello",  IDM_SAYHELLO
+        MENUITEM "&ReleaseKermit",     IDM_RELEASEKERMIT
+        MENUITEM "&QuitKermit",     IDM_QUITKERMIT
+    END
+END
+
+STRINGTABLE
+BEGIN
+   IDS_PROGNAME,           "Kermit Controller - vtbl binding"           // Application name
+   IDS_RESULT,             "Result"
+   IDS_ERROR,              "Error : Function Failed"
+END
+

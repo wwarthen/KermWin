@@ -1,0 +1,17 @@
+; .HPJ file for .HLP file generation via Microsoft HC31.EXE help compiler.
+; This file is furnished obligation-free to Kermit author Wayne Warthen
+; for possible use in his Kermit communications package.
+
+[OPTIONS]
+CONTENTS=CONTENTS   ; Sets CONTENTS topic as default opening index/contents.
+TITLE=Kermit Help   ; Title text for WINHELP caption.
+COMPRESS=TRUE       ; Compression option enabled (makes smaller .HLP file).
+WARNING=3           ; Warning setting (optional - higher more strict).
+ICON=KERMIT.ICO     ; Minimize icon to use (optional).
+OLDKEYPHRASE=FALSE
+
+[FILES]
+KERMIT.RTF          ; Source files (.RTF, .BMP, etc.) used.
+                             
+[CONFIG]
+BrowseButtons()     ; Enables WINHELP browse buttons.

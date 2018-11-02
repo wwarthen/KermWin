@@ -1,0 +1,14 @@
+#define IDD_OK                  IDOK
+#define IDD_CANCEL              IDCANCEL
+#define IDD_ABORT               IDABORT
+#define IDD_RETRY               IDRETRY
+#define IDD_IGNORE              IDIGNORE
+#define IDD_YES                 IDYES
+#define IDD_NO                  IDNO
+
+#define IDD_NEWLINE             100
+#define IDD_LOCALECHO           101
+#define IDD_LINEWRAP            102
+#define IDD_ABOUT				103
+#define IDD_VERSION				104
+#define IDD_MESSAGE				105

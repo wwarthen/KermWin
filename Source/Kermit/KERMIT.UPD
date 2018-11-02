@@ -1,0 +1,65 @@
+
+                      Kermit for Microsoft Windows
+                      ----------------------------
+                             Update History
+
+
+Version 0.75 (2nd Place Winner in MS Windows NT Shareware Contest!!!)
+------------
+
+Improved the look of the status and message bar areas (3D).
+
+Added support for Windowing extension to Kermit Protocol.
+
+Added user selectable terminal fonts.
+
+Created WIN32 version.
+
+Version 0.71
+------------
+
+Added support for COM3/4:.
+
+Version 0.70
+------------
+
+Modem autodialing has been added at last.
+
+Windows clipboard operations have also been added.  You must use review mode
+to use the Copy command.
+
+A generic teletype terminal emulation was added.
+
+All terminal emulations now fill the screen with blanks instead of nulls.
+Nulls caused "some" Windows display drivers to behave quite strangely.
+
+VT-100 emulation has been enhanced some.  Keyboard application mode is now
+supported.  Ensure NumLock is on and use the numeric keypad for application
+mode keys.
+
+Prerelease Version 0.60
+-----------------------
+
+This version of the program provides full compatibility with Windows
+Version 3.00.  It also implements a slightly nicer terminal screen with
+ribbon and information bars.
+
+A few problems in the Kermit protocol were corrected as well.
+
+The terminal emulation function has been moved to a dynamic link library.
+This allows new terminal emulations to be created very quickly.  If anyone
+is interested in creating additional terminal emulations, contact me and
+I will provide you with the necessary information (Note: creating new
+emulation modules requires the MS Windows Software Development Kit).
+
+The speed of scrolling text has been significantly increased.
+
+Prerelease Version 0.50
+-----------------------
+
+This version of the program is being released so that any problems
+with the protocol implementation itself can be ironed out early.
+The program is fully functional and quite usable as is.
+
+Features to be implemented in release 1.00 include full logging options,
+command scripts, and sliding windows.

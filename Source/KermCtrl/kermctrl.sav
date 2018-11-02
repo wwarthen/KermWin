@@ -1,0 +1,83 @@
+########################################################################
+##                                                                    ##
+##                    Setup  for Microsoft Windows                    ##
+##                    ----------------------------                    ##
+##                               SETUP                                ##
+##                                                                    ##
+##  Make file for building Setup  for MS Windows.  Requires the       ##
+##  MS C Compiler and Windows Development Kit.                        ##
+##                                                                    ##
+########################################################################
+
+# MACRO DEFINITIONS ----------------------------------------------------
+
+COMPDIR=KermCtrl
+MODTYPE=EXE
+LIBTYPE=STATIC
+
+!INCLUDE "$(ProjDir)\Source\ProjDefs.mak"
+
+INCLUDE  = .;$(SRCDIR);$(INCLUDE)
+
+MODLST1 = kermctrl.obj
+CINC =    $(SRCDIR)\kermctrl.h ikermoa.h
+DISTFILES = $(DISTDIR)\kermctrl.exe
+
+# INFERENCE RULES ------------------------------------------------------
+
+{$(SRCDIR)}.cpp{}.obj:
+    $(CPP) $(CFLAGS) /c $(SRCDIR)\$*.cpp
+
+{$(SRCDIR)}.rc{}.res:
+    $(RC) $(RFLAGS) /r -fo $*.res $(SRCDIR)\$*
+
+# EVERYTHING -----------------------------------------------------------
+
+all : kermctrl.exe $(DISTFILES)
+
+# LINK -----------------------------------------------------------------
+
+!IF "$(PLATFORM)" == "WIN32"
+
+kermctrl.exe   : $*.res $(MODLST1)
+    link @<<
+-subsystem:windows
+-machine:I386
+-out:$*.exe
+-version:0.85
+-map:$*.map
+$(LFLAGS)
+$*.res
+$(MODLST1)
+$(NTLIBS) version.lib ole32.lib oleaut32.lib uuid.lib uuid2.lib
+
+<<
+
+!ENDIF
+
+!IF "$(PLATFORM)" == "WIN16"
+
+kermctrl.exe   : $*.res $(SRCDIR)\$*.def $(MODLST1)
+    link $(LFLAGS) @<<
+$(MODLST1)
+$*
+$*
+libw mlibcew commdlg ver
+$(SRCDIR)\$*
+<<
+    $(RC) $*.res
+     
+!ENDIF
+     
+# COMPILE RESOURCE FILE ------------------------------------------------
+
+kermctrl.res   : $(SRCDIR)\$*.rc
+
+# COMPILE C SOURCE -----------------------------------------------------
+
+kermctrl.obj   : $(SRCDIR)\kermctrl.cpp $(CINC)
+
+# COPY DISTRIBUTION FILES ----------------------------------------------
+
+$(DISTFILES) : $(@F)
+    copy $(@F) $@

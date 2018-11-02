@@ -1,0 +1,80 @@
+[
+  uuid(cd322b20-0d7b-11d0-b92a-00a024a6f710),		// LIBID_KermOA
+  helpstring("KermOA Type Library"),
+  lcid(0x0000),
+  version(1.0)
+]
+library KermOATypeLibrary
+{
+#ifdef _WIN32
+    importlib("STDOLE2.TLB");
+#else
+    importlib("STDOLE.TLB");
+#endif
+
+    [
+      uuid(cd322b21-0d7b-11d0-b92a-00a024a6f710),	// IID_IKermOA
+      helpstring("Definition of interface IKermOA"),
+      odl,dual
+    ]
+    interface IKermOA : IDispatch
+    {
+
+	  // Standard calls
+
+      [propget, helpstring("Returns the application of the object.")]
+      HRESULT Application([out, retval] IKermOA** pRet);
+        
+      [propget, helpstring("Returns the full name of the application.")]
+      HRESULT FullName([out, retval] BSTR* pRet);
+        
+      [propget, id(0), helpstring("Returns the name of the application.")]
+      HRESULT Name([out, retval] BSTR* pRet);
+        
+      [propget, helpstring("Returns the parent of the object.")]
+      HRESULT Parent([out, retval] IKermOA** pRet);
+        
+      [propput]
+      HRESULT Visible([in] boolean VisibleFlag);
+      [propget, helpstring("Sets or returns whether the main window is visible.")]
+      HRESULT Visible([out, retval] boolean* pRet);
+        
+      [helpstring("Exits the application.")]
+      HRESULT Quit();
+        
+
+      //Properties
+
+      [propget, helpstring("The current sound")]
+      HRESULT Sound([out, retval] long * pRet);
+
+      [propput]
+      HRESULT Sound([in] long lSound);
+
+      //Methods
+
+      [helpstring("Play the current sound")]
+      HRESULT Beep([out, retval] long * pRet);
+
+      [helpstring("Write")]
+      HRESULT Write([in]BSTR bstrText);
+
+      [helpstring("Pause")]
+      HRESULT Pause([in]long lTime);
+
+      [helpstring("WaitFor")]
+      HRESULT WaitFor([in] BSTR bstrText, [in]long lTime, [out, retval] long * pRet);
+
+      [helpstring("Send")]
+      HRESULT Send([in] BSTR bstrText);
+    }
+
+    [
+      uuid(cd322b22-0d7b-11d0-b92a-00a024a6f710),	// CLSID_KermOA
+      helpstring("KermOA Object Type Information")
+    ]
+    coclass KermOA
+    {
+      interface IKermOA;
+    }
+};

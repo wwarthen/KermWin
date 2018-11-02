@@ -1,0 +1,125 @@
+;
+; Kermit for Windows
+; 16-bit Setup file
+;
+
+[Main]
+SetVar: AppTitle = Kermit for Windows Setup
+SetVar: DestDir = C:\KermWin
+
+[Config]
+GetDir: DestDir, Enter Destination Directory:
+
+[Files]
+CopyFile: Kermit.exe, , Normal
+CopyFile: KermCtrl.exe, , Normal
+;CopyFile: Kermit.hlp, , Normal
+CopyFile: Kermit.ini, , Normal
+CopyFile: Kermit.wri, , Normal
+CopyFile: ReadMe.txt, , Normal
+CopyFile: KeyMap.txt, , Normal
+CopyFile: KermTTY.trm, , Normal
+CopyFile: KermTTY.key, , Normal
+CopyFile: KermANSI.trm, , Normal
+CopyFile: KermANSI.key, , Normal
+CopyFile: KermDEC.trm, , Normal
+CopyFile: KermDEC.key, , Normal
+CopyFile: Setup.exe, , Normal
+CopyFile: Remove.scf, , Normal
+CopyFile: Cleanup.scf, , Normal
+CopyFile: Ctl3DV2.dll, , System
+
+[WinIni]
+AddVal: Kermit, Path = %DESTDIR%
+
+AddVal: Extensions, krm = %DESTDIR%\Kermit.exe ^.krm
+AddVal: Extensions, ksc = %DESTDIR%\Kermit.exe ^.ksc
+
+[ProgMan]
+CreateGroup: Kermit,WKERMIT
+AddItem: %DESTDIR%\Kermit.exe, Kermit
+AddItem: %DESTDIR%\KermCtrl.exe, Kermit Automation Tester
+AddItem: %DESTDIR%\Kermit.hlp, Kermit Help
+AddItem: %DESTDIR%\Kermit.wri, Kermit Documentation
+AddItem: %DESTDIR%\ReadMe.txt, Release Notes
+AddItem: %DESTDIR%\KeyMap.txt, Key Mapping Notes
+AddItem: %DESTDIR%\Setup.exe Remove.scf, Uninstall Kermit, %DESTDIR%\Setup.exe, 1
+
+[Reg]
+;
+; Application Registration
+;
+
+;DelKey: HKEY_LOCAL_MACHINE, Software\WDTech\Kermit\0.85
+;AddVal: HKEY_LOCAL_MACHINE, Software\WDTech\Kermit\0.85
+;SetValEx: HKEY_LOCAL_MACHINE, Software\WDTech\Kermit\0.85, Path = %DESTDIR%
+
+;
+; Files Registration
+;
+
+DelKey: HKEY_CLASSES_ROOT, .krm
+AddVal: HKEY_CLASSES_ROOT, .krm = krmfile
+DelKey: HKEY_CLASSES_ROOT, krmfile
+AddVal: HKEY_CLASSES_ROOT, krmfile = Kermit Session
+AddVal: HKEY_CLASSES_ROOT, krmfile\DefaultIcon = %DESTDIR%\Kermit.exe,0
+AddVal: HKEY_CLASSES_ROOT, krmfile\shell\open\command = %DESTDIR%\Kermit.exe %%1
+AddVal: HKEY_CLASSES_ROOT, krmfile\shell\connect = Connect
+AddVal: HKEY_CLASSES_ROOT, krmfile\shell\connect\command = %DESTDIR%\Kermit.exe %%1 /Connect
+
+DelKey: HKEY_CLASSES_ROOT, .ksc
+AddVal: HKEY_CLASSES_ROOT, .ksc = kscfile
+DelKey: HKEY_CLASSES_ROOT, kscfile
+AddVal: HKEY_CLASSES_ROOT, kscfile = Kermit Script
+AddVal: HKEY_CLASSES_ROOT, kscfile\DefaultIcon = %DESTDIR%\Kermit.exe,0
+AddVal: HKEY_CLASSES_ROOT, kscfile\shell\open\command = %DESTDIR%\Kermit.exe %%1
+
+DelKey: HKEY_CLASSES_ROOT, .trm
+AddVal: HKEY_CLASSES_ROOT, .trm = trmfile
+DelKey: HKEY_CLASSES_ROOT, trmfile
+AddVal: HKEY_CLASSES_ROOT, trmfile = Kermit Terminal Emulator
+AddVal: HKEY_CLASSES_ROOT, trmfile\DefaultIcon = %DESTDIR%\Kermit.exe,0
+
+DelKey: HKEY_CLASSES_ROOT, .key
+AddVal: HKEY_CLASSES_ROOT, .key = keyfile
+DelKey: HKEY_CLASSES_ROOT, keyfile
+AddVal: HKEY_CLASSES_ROOT, keyfile = Kermit Key Map
+AddVal: HKEY_CLASSES_ROOT, keyfile\DefaultIcon = %DESTDIR%\Kermit.exe,0
+
+;
+; OLE Registration
+;
+
+; Version independent registration. Points to Version 1.0
+DelKey: HKEY_CLASSES_ROOT, Kermit.Application
+AddVal: HKEY_CLASSES_ROOT, Kermit.Application = Kermit Application
+AddVal: HKEY_CLASSES_ROOT, Kermit.Application\CLSID = {CD322B22-0D7B-11D0-B92A-00A024A6F710}
+AddVal: HKEY_CLASSES_ROOT, Kermit.Application\CurVer = Kermit.Application.1
+
+; Version 1.0 registration
+;DelKey: HKEY_CLASSES_ROOT, Kermit.Application.1
+AddVal: HKEY_CLASSES_ROOT, Kermit.Application.1 = Kermit Application (Ver 1.0)
+AddVal: HKEY_CLASSES_ROOT, Kermit.Application.1\Clsid = {CD322B22-0D7B-11D0-B92A-00A024A6F710}   
+DelKey: HKEY_CLASSES_ROOT, CLSID\{CD322B22-0D7B-11D0-B92A-00A024A6F710}
+AddVal: HKEY_CLASSES_ROOT, CLSID\{CD322B22-0D7B-11D0-B92A-00A024A6F710} = Kermit Application (Ver 1.0)
+AddVal: HKEY_CLASSES_ROOT, CLSID\{CD322B22-0D7B-11D0-B92A-00A024A6F710}\ProgID = Kermit.Application.1
+AddVal: HKEY_CLASSES_ROOT, CLSID\{CD322B22-0D7B-11D0-B92A-00A024A6F710}\VersionIndependentProgID = Kermit.Application
+AddVal: HKEY_CLASSES_ROOT, CLSID\{CD322B22-0D7B-11D0-B92A-00A024A6F710}\LocalServer = %DESTDIR%\Kermit.exe /Automation
+AddVal: HKEY_CLASSES_ROOT, CLSID\{CD322B22-0D7B-11D0-B92A-00A024A6F710}\TypeLib = {CD322B20-0D7B-11D0-B92A-00A024A6F710}
+AddVal: HKEY_CLASSES_ROOT, CLSID\{CD322B22-0D7B-11D0-B92A-00A024A6F710}\Programmable
+
+; Type library registration information  
+DelKey: HKEY_CLASSES_ROOT, TypeLib\{CD322B20-0D7B-11D0-B92A-00A024A6F710}
+AddVal: HKEY_CLASSES_ROOT, TypeLib\{CD322B20-0D7B-11D0-B92A-00A024A6F710}
+AddVal: HKEY_CLASSES_ROOT, TypeLib\{CD322B20-0D7B-11D0-B92A-00A024A6F710}\1.0 = KermOA Type Library
+AddVal: HKEY_CLASSES_ROOT, TypeLib\{CD322B20-0D7B-11D0-B92A-00A024A6F710}\1.0\HELPDIR = 
+AddVal: HKEY_CLASSES_ROOT, TypeLib\{CD322B20-0D7B-11D0-B92A-00A024A6F710}\1.0\FLAGS = 0
+AddVal: HKEY_CLASSES_ROOT, TypeLib\{CD322B20-0D7B-11D0-B92A-00A024A6F710}\1.0\0\win16 = %DESTDIR%\Kermit.exe\1
+
+; Interface registration information  
+DelKey: HKEY_CLASSES_ROOT, Interface\{CD322B21-0D7B-11D0-B92A-00A024A6F710}
+AddVal: HKEY_CLASSES_ROOT, Interface\{CD322B21-0D7B-11D0-B92A-00A024A6F710} = IKermOA
+AddVal: HKEY_CLASSES_ROOT, Interface\{CD322B21-0D7B-11D0-B92A-00A024A6F710}\TypeLib = {CD322B20-0D7B-11D0-B92A-00A024A6F710}
+AddVal: HKEY_CLASSES_ROOT, Interface\{CD322B21-0D7B-11D0-B92A-00A024A6F710}\TypeLib\Version = 1.0
+AddVal: HKEY_CLASSES_ROOT, Interface\{CD322B21-0D7B-11D0-B92A-00A024A6F710}\ProxyStubClsid = {00020424-0000-0000-C000-000000000046}
+AddVal: HKEY_CLASSES_ROOT, Interface\{CD322B21-0D7B-11D0-B92A-00A024A6F710}\ProxyStubClsid32 = {00020424-0000-0000-C000-000000000046}

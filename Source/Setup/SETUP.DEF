@@ -1,0 +1,15 @@
+NAME        Setup
+EXETYPE     WINDOWS
+
+DESCRIPTION 'Setup for MS Windows'
+     
+STUB        'WINSTUB.EXE'
+     
+CODE        MOVEABLE DISCARDABLE
+DATA        MOVEABLE MULTIPLE PRELOAD
+     
+SEGMENTS    _TEXT         PRELOAD
+            SETUP_TEXT    PRELOAD
+     
+HEAPSIZE    2048
+STACKSIZE   8192

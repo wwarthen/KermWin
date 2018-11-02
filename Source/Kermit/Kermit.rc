@@ -1,0 +1,755 @@
+/*******************************************************************************
+**                                                                            **
+**                      Kermit for Microsoft Windows                          **
+**                      ----------------------------                          **
+**                               KERMIT.RC                                    **
+**                                                                            **
+**  This is the primary MS Windows resource file for the application.         **
+**                                                                            **
+*******************************************************************************/
+
+/* INCLUDES ----------------------------------------------------------------- */
+
+#include <windows.h>
+#include <dlgs.h>
+#ifndef _WIN32
+#include <ver.h>
+#endif
+#include "kermver.h"
+#include "kermres.h"
+#include "winstyle.h"
+
+#ifndef _WIN32
+#define SS_SUNKEN 0
+#endif
+
+/* ICONS -------------------------------------------------------------------- */
+
+KermitIcon ICON kermit.ico
+                       
+/* VERSION ------------------------------------------------------------------ */
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD
+PRODUCTVERSION VER_MAJOR, VER_MINOR, VER_PATCH, VER_BUILD
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#ifdef DEBUG
+FILEFLAGS VS_FF_DEBUG
+#else
+FILEFLAGS 0
+#endif
+#ifdef _WIN32
+FILEOS VOS_NT_WINDOWS32
+#else
+FILEOS VOS_DOS_WINDOWS16
+#endif
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904E4"
+        BEGIN 
+            VALUE "CompanyName",     "Wayne Warthen" "\0"
+            VALUE "FileDescription", "Kermit for Windows" "\0"
+            VALUE "FileVersion",     VER_DESC "\0"
+            VALUE "InternalName",    "Kermit" "\0"
+            VALUE "LegalCopyright",  "Copyright \251 Wayne Warthen 1990-1995" "\0"
+            VALUE "OriginalFilename","KERMIT.EXE" "\0"
+            VALUE "ProductName",     "Kermit for Windows" "\0"
+            VALUE "ProductVersion",  VER_DESC "\0"
+        END
+    END
+ 
+    BLOCK "VarFileInfo" 
+    BEGIN 
+        VALUE "Translation", 0x409, 0x4E4
+    END
+END
+
+/* KERMIT OA TYPE LIBRARY --------------------------------------------------- */
+
+1 TYPELIB IKermOA.tlb
+
+/* MENUS -------------------------------------------------------------------- */
+
+StartMenu MENU
+BEGIN
+    MENUITEM "&Send...",                    IDM_SEND
+    MENUITEM "&Receive",                    IDM_RECEIVE
+    MENUITEM SEPARATOR
+    MENUITEM "Ser&ver",                     IDM_SERVER
+    MENUITEM "&Get...",                     IDM_GET
+    MENUITEM "&Host...",                    IDM_HOST
+    MENUITEM "Ge&neric...",                 IDM_GENERIC
+END
+
+StopMenu MENU
+BEGIN
+    MENUITEM "Cancel &File\tCtrl+X"         IDM_CANFILE
+    MENUITEM "Cancel &Batch\tCtrl+Z"        IDM_CANBATCH
+    MENUITEM "&Stop\tCtrl+E"                IDM_STOP
+    MENUITEM "&Abort\tCtrl+C"               IDM_ABORT
+    MENUITEM "&Retry\tCtrl+M"               IDM_RETRY
+END
+
+#ifdef DEBUG
+DebugMenu MENU
+BEGIN
+    MENUITEM "Show &DCB...",                IDM_DEBDCB
+    MENUITEM SEPARATOR
+    MENUITEM "Test #&1...",                 IDM_DEBTEST1
+    MENUITEM "Test #&2...",                 IDM_DEBTEST2
+    MENUITEM "Test #&3...",                 IDM_DEBTEST3
+    MENUITEM "Test #&4...",                 IDM_DEBTEST4
+    MENUITEM "Test #&5...",                 IDM_DEBTEST5
+    MENUITEM "Test #&6...",                 IDM_DEBTEST6
+END
+#endif
+
+KermitMenu MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New...",                 IDM_NEW
+        MENUITEM "&Open...",                IDM_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "&Save",                   IDM_SAVE
+        MENUITEM "Save &As...",             IDM_SAVEAS
+#ifdef AXSCRIPT
+        MENUITEM SEPARATOR
+		MENUITEM "&Manage Scripts...",		IDM_SCRIPT
+		MENUITEM "&Execute Statements...",	IDM_EXEC
+		POPUP "&Debug Scripts"
+			BEGIN
+				MENUITEM "&Open Debugger",				IDM_DBGROPEN
+				MENUITEM "&Break at Next Statement",	IDM_DBGRBREAK
+			END
+#endif
+		MENUITEM SEPARATOR
+        MENUITEM "E&xit",                   IDM_EXIT
+    END
+
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Copy\tShift+Ctrl+C",     IDM_COPY
+        MENUITEM "&Paste\tShift+Ctrl+V",    IDM_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "&Review\tPause",          IDM_REVIEW
+    END
+
+    POPUP "&Session"
+    BEGIN
+        MENUITEM "&Connect\tCtrl+F3",       IDM_CONNECT
+        MENUITEM SEPARATOR
+        MENUITEM "&Break\tCtrl+F4",         IDM_BREAK
+        MENUITEM SEPARATOR
+        MENUITEM "&Print\tCtrl+F5",         IDM_PRINT, GRAYED
+        MENUITEM "&Transmit...\tCtrl+F6",   IDM_TRANSMIT, GRAYED
+        MENUITEM "C&apture...\tCtrl+F7",    IDM_CAPTURE, GRAYED
+    END
+
+    POPUP "&Kermit"
+    BEGIN
+        MENUITEM SEPARATOR
+    END
+
+    POPUP "&Configure"
+    BEGIN
+        MENUITEM "&Session...",             IDM_SESSION
+        MENUITEM "&Terminal...",            IDM_TERMINAL
+        MENUITEM "&Communications...",      IDM_COMMUNICATIONS
+        MENUITEM "&Device...",              IDM_DEVICE
+        MENUITEM "&Protocol...",            IDM_PROTOCOL
+        MENUITEM "&Logging...",             IDM_LOGGING, GRAYED
+        MENUITEM "&Font...",                IDM_FONT
+    END
+    
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Contents",               IDM_HELPCTX
+        MENUITEM "&Search for Help on...",  IDM_HELPSRCH
+        MENUITEM "&How to Use Help",        IDM_HELPHELP
+        MENUITEM SEPARATOR
+        MENUITEM "A&bout Kermit...",        IDM_ABOUT
+    END
+END
+
+/* STRING TABLE ------------------------------------------------------------- */
+
+STRINGTABLE
+BEGIN
+    IDM_FILE,           "File Menu"
+    IDM_EDIT,           "Edit Menu"
+    IDM_SESS,           "Session Menu"
+    IDM_KERMIT,         "Kermit Menu"
+    IDM_CONFIGURE,      "Configuration Menu"
+    IDM_HELP,           "Help Menu"
+    IDM_DEBUG,          "Debug Menu"
+    IDM_NEW,            "Open a new terminal session"
+    IDM_OPEN,           "Open a saved terminal session"
+    IDM_SAVE,           "Save the current terminal session"
+    IDM_SAVEAS,         "Save terminal session with new name"
+    IDM_SCRIPT,         "Execute ActiveX script file"
+    IDM_EXEC,			"Execute script statements"
+    IDM_DBGROPEN,       "Open script debugger"
+    IDM_DBGRBREAK,      "Break at next script statement executed"
+    IDM_EXIT,           "Exit Kermit"
+    IDM_COPY,           "Copy selection to clipboard"
+    IDM_PASTE,          "Paste clipboard contents"
+    IDM_REVIEW,         "Review/Select terminal text"
+    IDM_CONNECT,        "Open the communications port"
+    IDM_BREAK,          "Send a break signal"
+    IDM_PRINT,          "Begin echoing all data to printer"
+    IDM_TRANSMIT,       "Begin a raw file transmaission"
+    IDM_CAPTURE,        "Begin capturing screen data to a file"
+    IDM_SEND,           "Send file(s) with Kermit protocol"
+    IDM_RECEIVE,        "Receive file(s) with Kermit protocol"
+    IDM_SERVER,         "Initiate Kermit server mode"
+    IDM_GET,            "Get files from Kermit server"
+    IDM_HOST,           "Issue host command to Kermit server"
+    IDM_GENERIC,        "Issue generic command to Kermit server"
+    IDM_SESSION,        "Configure session settings"
+    IDM_TERMINAL,       "Configure terminal settings"
+    IDM_COMMUNICATIONS, "Configure communication settings"
+    IDM_DEVICE,         "Configure device settings"
+    IDM_PROTOCOL,       "Configure Kermit protocol settings"
+    IDM_LOGGING,        "Configure logging settings"
+    IDM_FONT,           "Configure terminal font"
+    IDM_CANFILE,        "Cancel current file (not batch)"
+    IDM_CANBATCH,       "Cancel all files in batch"
+    IDM_STOP,           "Stop transfer with error"
+    IDM_ABORT,          "Abort transfer immediately"
+    IDM_RETRY,          "Resend the current packet"
+    IDM_HELPCTX,        "Display Help contents"
+    IDM_HELPSRCH,       "Search for a Help topic"
+    IDM_HELPHELP,       "Display introduction to Windows Help"
+    IDM_ABOUT,          "Information about this Kermit"
+
+    IDS_COMMERRBASE + 0,  "Unknown Comm Port Error"
+    IDS_COMMERRBASE + 1,  "Invalid or Unsupported Port Id"
+    IDS_COMMERRBASE + 2,  "Comm Port Already Open"
+    IDS_COMMERRBASE + 3,  "Comm Port Not Open"
+    IDS_COMMERRBASE + 4,  "Unable to Allocate Comm Queues"
+    IDS_COMMERRBASE + 5,  "Error in Default Parameters"
+    IDS_COMMERRBASE + 10, "Hardware Not Present"
+    IDS_COMMERRBASE + 11, "Illegal Byte Size"
+    IDS_COMMERRBASE + 12, "Unsupported Baud Rate"
+    
+    IDS_WSAERRBASE + 4          "WSAEINTR"              
+    IDS_WSAERRBASE + 9          "WSAEBADF"              
+    IDS_WSAERRBASE + 13         "WSAEACCES"             
+    IDS_WSAERRBASE + 14         "WSAEFAULT"             
+    IDS_WSAERRBASE + 22         "WSAEINVAL"             
+    IDS_WSAERRBASE + 24         "WSAEMFILE"             
+    IDS_WSAERRBASE + 35         "WSAEWOULDBLOCK"        
+    IDS_WSAERRBASE + 36         "WSAEINPROGRESS"        
+    IDS_WSAERRBASE + 37         "WSAEALREADY"           
+    IDS_WSAERRBASE + 38         "WSAENOTSOCK"           
+    IDS_WSAERRBASE + 39         "WSAEDESTADDRREQ"       
+    IDS_WSAERRBASE + 40         "WSAEMSGSIZE"           
+    IDS_WSAERRBASE + 41         "WSAEPROTOTYPE"         
+    IDS_WSAERRBASE + 42         "WSAENOPROTOOPT"        
+    IDS_WSAERRBASE + 43         "WSAEPROTONOSUPPORT"    
+    IDS_WSAERRBASE + 44         "WSAESOCKTNOSUPPORT"    
+    IDS_WSAERRBASE + 45         "WSAEOPNOTSUPP"         
+    IDS_WSAERRBASE + 46         "WSAEPFNOSUPPORT"       
+    IDS_WSAERRBASE + 47         "WSAEAFNOSUPPORT"       
+    IDS_WSAERRBASE + 48         "WSAEADDRINUSE"         
+    IDS_WSAERRBASE + 49         "WSAEADDRNOTAVAIL"      
+    IDS_WSAERRBASE + 50         "WSAENETDOWN"           
+    IDS_WSAERRBASE + 51         "WSAENETUNREACH"        
+    IDS_WSAERRBASE + 52         "WSAENETRESET"          
+    IDS_WSAERRBASE + 53         "WSAECONNABORTED"       
+    IDS_WSAERRBASE + 54         "WSAECONNRESET"         
+    IDS_WSAERRBASE + 55         "WSAENOBUFS"            
+    IDS_WSAERRBASE + 56         "WSAEISCONN"            
+    IDS_WSAERRBASE + 57         "WSAENOTCONN"           
+    IDS_WSAERRBASE + 58         "WSAESHUTDOWN"          
+    IDS_WSAERRBASE + 59         "WSAETOOMANYREFS"       
+    IDS_WSAERRBASE + 60         "WSAETIMEDOUT"          
+    IDS_WSAERRBASE + 61         "WSAECONNREFUSED"       
+    IDS_WSAERRBASE + 62         "WSAELOOP"              
+    IDS_WSAERRBASE + 63         "WSAENAMETOOLONG"       
+    IDS_WSAERRBASE + 64         "WSAEHOSTDOWN"          
+    IDS_WSAERRBASE + 65         "WSAEHOSTUNREACH"       
+    IDS_WSAERRBASE + 66         "WSAENOTEMPTY"          
+    IDS_WSAERRBASE + 67         "WSAEPROCLIM"           
+    IDS_WSAERRBASE + 68         "WSAEUSERS"             
+    IDS_WSAERRBASE + 69         "WSAEDQUOT"             
+    IDS_WSAERRBASE + 70         "WSAESTALE"             
+    IDS_WSAERRBASE + 71         "WSAEREMOTE"            
+    IDS_WSAERRBASE + 101        "WSAEDISCON"            
+    IDS_WSAERRBASE + 91         "WSASYSNOTREADY"        
+    IDS_WSAERRBASE + 92         "WSAVERNOTSUPPORTED"    
+    IDS_WSAERRBASE + 93         "WSANOTINITIALISED"
+
+    IDS_WSAERRBASE + 1001       "WSAHOST_NOT_FOUND"
+    IDS_WSAERRBASE + 1002       "WSATRY_AGAIN"
+    IDS_WSAERRBASE + 1003       "WSANO_RECOVERY"
+    IDS_WSAERRBASE + 1004       "WSANO_DATA, WSANO_ADDRESS"
+END
+
+/* KEYBOARD ACCELERATORS ---------------------------------------------------- */
+
+MenuAccel ACCELERATORS
+BEGIN
+    "C",       IDM_COPY,        VIRTKEY, SHIFT, CONTROL
+    "V",       IDM_PASTE,       VIRTKEY, SHIFT, CONTROL
+    VK_INSERT, IDM_COPY,        VIRTKEY, CONTROL
+    VK_INSERT, IDM_PASTE,       VIRTKEY, SHIFT
+    VK_F3,     IDM_CONNECT,     VIRTKEY, CONTROL
+    VK_F4,     IDM_BREAK,       VIRTKEY, CONTROL
+    VK_F5,     IDM_PRINT,       VIRTKEY, CONTROL
+    VK_F6,     IDM_TRANSMIT,    VIRTKEY, CONTROL
+    VK_F7,     IDM_CAPTURE,     VIRTKEY, CONTROL
+    VK_PAUSE,  IDM_REVIEW,      VIRTKEY
+END
+
+XferAccel ACCELERATORS
+BEGIN
+    "^X",      IDM_CANFILE,     ASCII
+    "^Z",      IDM_CANBATCH,    ASCII
+    "^E",      IDM_STOP,        ASCII
+    "^C",      IDM_ABORT,       ASCII
+    "^M",      IDM_RETRY,       ASCII
+END
+
+/* DIALOGS ------------------------------------------------------------------ */
+
+ABOUTDLGBOX DIALOG DISCARDABLE  36, 36, 228, 144
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Kermit"
+FONT 8, "Helv"
+BEGIN
+    ICON            "KermitIcon",-1,20,16,18,20
+    LTEXT           "",IDD_VERSION,60,8,160,32
+    CONTROL         "",-1,"Static",SS_BLACKFRAME | SS_SUNKEN,0,48,228,1
+    LTEXT           "",IDD_MESSAGE,8,56,164,32
+    DEFPUSHBUTTON   "&Ok",IDD_OK,180,64,40,14
+    CONTROL         "",-1,"Static",SS_BLACKFRAME | SS_SUNKEN,0,96,228,1
+	LTEXT			"",IDD_INFO, 8, 104, 212, 32
+END
+
+ASYNCDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 200, 120
+CAPTION "Asynchronous Communications Settings"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "&Baud Rate:", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 10, 52, 8
+    CONTROL "", IDD_BAUDRATE, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 8, 32, 12
+    CONTROL "&Word Length", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 24, 52, 8
+    CONTROL "4", IDD_4DATABITS, "button", BS_RADIOBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 22, 18, 12
+    CONTROL "5", IDD_5DATABITS, "button", BS_RADIOBUTTON | WS_CHILD, 84, 22, 18, 12
+    CONTROL "6", IDD_6DATABITS, "button", BS_RADIOBUTTON | WS_CHILD, 108, 22, 18, 12
+    CONTROL "7", IDD_7DATABITS, "button", BS_RADIOBUTTON | WS_CHILD, 132, 22, 18, 12
+    CONTROL "8", IDD_8DATABITS, "button", BS_RADIOBUTTON | WS_CHILD, 156, 22, 18, 12
+    CONTROL "Pa&rity", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 38, 52, 8
+    CONTROL "N", IDD_NOPTY, "button", BS_RADIOBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 36, 18, 12
+    CONTROL "O", IDD_ODDPTY, "button", BS_RADIOBUTTON | WS_CHILD, 84, 36, 18, 12
+    CONTROL "E", IDD_EVENPTY, "button", BS_RADIOBUTTON | WS_CHILD, 108, 36, 18, 12
+    CONTROL "M", IDD_MARKPTY, "button", BS_RADIOBUTTON | WS_CHILD, 132, 36, 18, 12
+    CONTROL "S", IDD_SPACEPTY, "button", BS_RADIOBUTTON | WS_CHILD, 156, 36, 18, 12
+    CONTROL "&Stop Bits", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 52, 52, 8
+    CONTROL "1", IDD_1STOPBIT, "button", BS_RADIOBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 50, 18, 12
+    CONTROL "1.5", IDD_1HSTOPBITS, "button", BS_RADIOBUTTON | WS_CHILD, 108, 50, 26, 12
+    CONTROL "2", IDD_2STOPBITS, "button", BS_RADIOBUTTON | WS_CHILD, 156, 50, 18, 12
+    CONTROL "&Handshake", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 66, 52, 8
+    CONTROL "XOn/XOff", IDD_FLOWCTL, "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 64, 46, 12
+    CONTROL "Hardware", IDD_HANDSHK, "button", BS_AUTOCHECKBOX | WS_TABSTOP | WS_CHILD, 108, 64, 46, 12
+    CONTROL "&Port", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 80, 52, 8
+    CONTROL "Com1", IDD_COM1, "button", BS_RADIOBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 78, 30, 12
+    CONTROL "Com2", IDD_COM2, "button", BS_RADIOBUTTON | WS_CHILD,  92, 78, 30, 12
+    CONTROL "Com3", IDD_COM3, "button", BS_RADIOBUTTON | WS_CHILD, 124, 78, 30, 12
+    CONTROL "Com4", IDD_COM4, "button", BS_RADIOBUTTON | WS_CHILD, 156, 78, 30, 12
+    CONTROL "&OK", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 34, 98, 50, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 118, 98, 50, 14
+END
+
+TCPIPDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 200, 126
+CAPTION "TCP/IP Telnet Communications Settings"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    RTEXT           "&Host:",-1,4,10,32,8
+    EDITTEXT        IDD_HOST,40,8,152,12
+    RTEXT           "&Port:",-1,4,32,32,8
+    EDITTEXT        IDD_PORT,40,28,52,12
+    RTEXT           "&Terminal:",-1,4,52,32,8
+    EDITTEXT        IDD_TERMTYPE,40,48,76,12
+    CONTROL         "&Send CR LF for End of Line",IDD_SENDCRLF,"Button",BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,40,68,112,10
+    CONTROL         "Suppress &Negotiation",IDD_SUPNEG,"Button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,40,84,112,10
+    DEFPUSHBUTTON   "&OK",IDD_OK,32,105,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDD_CANCEL,116,105,50,14,WS_GROUP
+END
+
+GENERICDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 158, 162
+CAPTION "Generic Command"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "Login", IDD_GCMDI, "button", BS_RADIOBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 8, 50, 12
+    CONTROL "Chg Dir", IDD_GCMDC, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 54, 8, 50, 12
+    CONTROL "Logout", IDD_GCMDL, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 104, 8, 50, 12
+    CONTROL "Finish", IDD_GCMDF, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 4, 20, 50, 12
+    CONTROL "Directory", IDD_GCMDD, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 54, 20, 50, 12
+    CONTROL "Disk Use", IDD_GCMDU, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 104, 20, 50, 12
+    CONTROL "Delete", IDD_GCMDE, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 4, 32, 50, 12
+    CONTROL "Type", IDD_GCMDT, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 54, 32, 50, 12
+    CONTROL "Rename", IDD_GCMDR, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 104, 32, 50, 12
+    CONTROL "Copy", IDD_GCMDK, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 4, 44, 50, 12
+    CONTROL "Who", IDD_GCMDW, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 54, 44, 50, 12
+    CONTROL "Send Msg", IDD_GCMDM, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 104, 44, 50, 12
+    CONTROL "Help", IDD_GCMDH, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 4, 56, 50, 12
+    CONTROL "Status", IDD_GCMDQ, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 54, 56, 50, 12
+    CONTROL "Execute", IDD_GCMDP, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 104, 56, 50, 12
+    CONTROL "Journal", IDD_GCMDJ, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 4, 68, 50, 12
+    CONTROL "Variable", IDD_GCMDV, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 54, 68, 50, 12
+    CONTROL "", IDD_PARM1, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 88, 150, 12
+    CONTROL "", IDD_PARM2, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 104, 150, 12
+    CONTROL "", IDD_PARM3, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 120, 150, 12
+    CONTROL "&OK", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 20, 140, 50, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 90, 140, 50, 14
+END
+
+GETDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 175, 60
+CAPTION "Get File(s)"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "Get &File(s):", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 8, 56, 10
+    CONTROL "", IDD_PARMS, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 18, 167, 12
+    CONTROL "&Get", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 24, 38, 50, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 100, 38, 50, 14
+END
+
+HOSTDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 175, 60
+CAPTION "Host Command"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "Host &Command:", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 8, 62, 10
+    CONTROL "", IDD_PARMS, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 18, 167, 12
+    CONTROL "&OK", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 24, 38, 50, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 100, 36, 50, 14
+END
+
+LOGGINGDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 200, 82
+CAPTION "Log Settings"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "&Session", IDD_LOGSESFLG, "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 10, 52, 8
+    CONTROL "", IDD_LOGSESFIL, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 60, 8, 136, 12
+    CONTROL "&Packet", IDD_LOGPKTFLG, "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 26, 52, 8
+    CONTROL "", IDD_LOGPKTFIL, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 60, 24, 136, 12
+    CONTROL "&Transaction", IDD_LOGTRNFLG, "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 42, 52, 8
+    CONTROL "", IDD_LOGTRNFIL, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 60, 40, 136, 12
+    CONTROL "&OK", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 24, 60, 50, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 124, 60, 50, 14
+END
+
+DIALDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 170, 62
+CAPTION "Hayes Auto Dial"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "Number:", -1, "static", SS_RIGHT | WS_GROUP | WS_CHILD, 8, 8, 30, 8
+    CONTROL "123-456-7890", IDD_NUMBER, "static", SS_LEFT | WS_CHILD, 42, 8, 122, 8
+    CONTROL "Status:", -1, "static", SS_RIGHT | WS_GROUP | WS_CHILD, 8, 24, 30, 8
+    CONTROL "Waiting for Connection", IDD_STATUS, "static", SS_LEFT | WS_CHILD, 42, 24, 122, 8
+    CONTROL "&Redial", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_TABSTOP | WS_CHILD, 30, 40, 40, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_TABSTOP | WS_CHILD, 100, 40, 40, 14
+END
+
+DEVICEDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 254, 176
+CAPTION "Device Settings"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "&Connection", -1, "button", BS_GROUPBOX | WS_GROUP | WS_CHILD, 8, 8, 238, 32
+    CONTROL "Local", IDD_LOCAL, "button", BS_AUTORADIOBUTTON | WS_TABSTOP | WS_CHILD, 205, 20, 28, 12
+    CONTROL "Dial:", IDD_DIAL, "button", BS_AUTORADIOBUTTON | WS_CHILD, 16, 20, 28, 12
+    CONTROL "Answer", IDD_ANSWER, "button", BS_AUTORADIOBUTTON | WS_CHILD, 159, 20, 40, 12
+    CONTROL "", IDD_NUMBER, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 48, 20, 98, 12
+
+    CONTROL "&Modem", -1, "button", BS_GROUPBOX | WS_GROUP | WS_CHILD, 8, 48, 238, 64
+    CONTROL "Dial Init:", -1, "static", SS_RIGHT | WS_CHILD, 16, 62, 40, 8
+    CONTROL "", IDD_DIALINIT, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 60, 60, 60, 12
+    CONTROL "Dial Cmd:", -1, "static", SS_RIGHT | WS_CHILD, 134, 62, 40, 8
+    CONTROL "", IDD_DIALCMD, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 178, 60, 60, 12
+    CONTROL "Answer Init:", -1, "static", SS_RIGHT | WS_CHILD, 16, 78, 40, 8
+    CONTROL "", IDD_ANSINIT, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 60, 76, 60, 12
+    CONTROL "Hangup:", -1, "static", SS_RIGHT | WS_CHILD, 134, 78, 40, 8
+    CONTROL "", IDD_HANGUP, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 178, 76, 60, 12
+    CONTROL "Escape:", -1, "static", SS_RIGHT | WS_CHILD, 16, 94, 40, 8
+    CONTROL "", IDD_ESCAPE, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 60, 92, 60, 12
+    CONTROL "Connect:", 121, "static", SS_RIGHT | WS_CHILD, 134, 94, 40, 8
+    CONTROL "", IDD_CONNECT, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 178, 92, 60, 12
+
+    CONTROL "&Dial Setup", -1, "button", BS_GROUPBOX | WS_CHILD | WS_GROUP, 8, 118, 166, 48
+    CONTROL "Redial", -1, "static", SS_LEFT | WS_CHILD, 16, 134, 24, 8
+    CONTROL "", IDD_DIALCNT, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 44, 132, 20, 12
+    CONTROL "times, every", -1, "static", SS_LEFT | WS_CHILD, 68, 134, 44, 8
+    CONTROL "", IDD_DIALWAIT, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 116, 132, 20, 12
+    CONTROL "seconds", -1, "static", SS_LEFT | WS_CHILD, 138, 134, 30, 8
+    CONTROL "Wait", -1, "static", SS_LEFT | WS_CHILD, 16, 150, 18, 8
+    CONTROL "", IDD_ANSWAIT, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 38, 148, 20, 12
+    CONTROL "seconds for host connection", 129, "static", SS_LEFT | WS_CHILD, 63, 150, 96, 8
+
+    CONTROL "&OK", 1, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 190, 126, 50, 14
+    CONTROL "Cancel", 2, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 190, 150, 50, 14
+END
+
+OPENDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 200, 112
+CAPTION "Open Session"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "File &Name:", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 10, 40, 8
+    CONTROL "", IDD_NAME, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 48, 8, 148, 12
+    CONTROL "&Files", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 28, 20, 8
+    CONTROL "", IDD_FILELIST, "listbox", LBS_NOTIFY | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 38, 66, 65
+    CONTROL "Directory is", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 78, 28, 40, 8
+    CONTROL "", IDD_PATH, "static", SS_LEFT | WS_GROUP | WS_CHILD, 118, 28, 78, 8
+    CONTROL "&Directores", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 78, 44, 36, 8
+    CONTROL "", IDD_DIRLIST, "listbox", LBS_NOTIFY | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 78, 54, 70, 49
+    CONTROL "OK", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 156, 60, 40, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 156, 82, 40, 14
+END
+
+PACKETSDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 134, 124
+CAPTION "Kermit Packet Settings"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "Send", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 70, 8, 20, 8
+    CONTROL "Rcv", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 110, 8, 20, 8
+    CONTROL "&Padding Value", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 20, 50, 8
+    CONTROL "", IDD_SPADCHR, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 70, 18, 20, 12
+    CONTROL "", IDD_RPADCHR, "edit", ES_LEFT | WS_BORDER | WS_TABSTOP | WS_CHILD, 110, 18, 20, 12
+    CONTROL "Padding &Count", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 36, 50, 8
+    CONTROL "", IDD_SPADCNT, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 70, 34, 20, 12
+    CONTROL "", IDD_RPADCNT, "edit", ES_LEFT | WS_BORDER | WS_TABSTOP | WS_CHILD, 110, 34, 20, 12
+    CONTROL "&Start of Packet", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 52, 50, 8
+    CONTROL "", IDD_SPKTSOP, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 70, 50, 20, 12
+    CONTROL "", IDD_RPKTSOP, "edit", ES_LEFT | WS_BORDER | WS_TABSTOP | WS_CHILD, 110, 50, 20, 12
+    CONTROL "&End of Line", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 68, 50, 8
+    CONTROL "", IDD_SPKTEOL, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 70, 66, 20, 12
+    CONTROL "", IDD_RPKTEOL, "edit", ES_LEFT | WS_BORDER | WS_TABSTOP | WS_CHILD, 110, 66, 20, 12
+    CONTROL "Control &Quote", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 84, 50, 8
+    CONTROL "", IDD_SCTLPFX, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 70, 82, 20, 12
+    CONTROL "", IDD_RCTLPFX, "edit", ES_LEFT | WS_BORDER | WS_TABSTOP | WS_CHILD, 110, 82, 20, 12
+    CONTROL "&OK", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 12, 102, 50, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 72, 102, 50, 14
+END
+
+PROTOCOLDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 220, 144
+CAPTION "Kermit Protocol Settings"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "Send", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 80, 6, 20, 8
+    CONTROL "Rcv", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 120, 6, 20, 8
+    CONTROL "Packet &Size", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 20, 62, 8
+    CONTROL "", IDD_SPKTSIZE, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 80, 18, 24, 12
+    CONTROL "", IDD_RPKTSIZE, "edit", ES_LEFT | WS_BORDER | WS_TABSTOP | WS_CHILD, 120, 16, 24, 12
+    CONTROL "&Timeout (seconds)", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 36, 62, 8
+    CONTROL "", IDD_STIMEOUT, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 80, 34, 24, 12
+    CONTROL "", IDD_RTIMEOUT, "edit", ES_LEFT | WS_BORDER | WS_TABSTOP | WS_CHILD, 120, 34, 24, 12
+    CONTROL "Retry &Limit", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 52, 62, 8
+    CONTROL "", IDD_SLIMIT, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 80, 50, 24, 12
+    CONTROL "&Block Check", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 72, 42, 8
+    CONTROL "Type 1", IDD_BCHK1, "button", BS_RADIOBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 70, 38, 12
+    CONTROL "Type 2", IDD_BCHK2, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 108, 70, 38, 12
+    CONTROL "Type 3", IDD_BCHK3, "button", BS_RADIOBUTTON | WS_TABSTOP | WS_CHILD, 156, 70, 38, 12
+    CONTROL "&Debug", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 88, 42, 8
+    CONTROL "Packet", IDD_PKTDBG, "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 86, 42, 12
+    CONTROL "State", IDD_STADBG, "button", BS_AUTOCHECKBOX | WS_TABSTOP | WS_CHILD, 108, 86, 42, 12
+    CONTROL "Other", IDD_OTHDBG, "button", BS_AUTOCHECKBOX | WS_TABSTOP | WS_CHILD, 156, 86, 42, 12
+    CONTROL "&Options", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 104, 42, 8
+    CONTROL "Attrib", IDD_ATRCAP, "button", BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 60, 102, 42, 12
+    CONTROL "Window Slots", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 118, 104, 48, 8
+    CONTROL "", IDD_WNDSIZE, "edit", ES_LEFT | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 168, 102, 24, 12
+    CONTROL "&Packets...", IDD_PACKETS, "button", BS_PUSHBUTTON | WS_TABSTOP | WS_CHILD, 155, 20, 50, 14
+    CONTROL "&Options...", IDD_OPTIONS, "button", BS_PUSHBUTTON | WS_TABSTOP | WS_CHILD | WS_DISABLED, 155, 45, 50, 14
+    CONTROL "&OK", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 44, 122, 50, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 128, 122, 50, 14
+END
+
+SAVEDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 150, 54
+CAPTION "Save Session"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "&Save Session as:", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 8, 80, 8
+    CONTROL "", IDD_NAME, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_TABSTOP | WS_CHILD, 4, 18, 90, 12
+    CONTROL "", IDD_PATH, "static", SS_LEFT | WS_GROUP | WS_CHILD, 4, 38, 90, 8
+    CONTROL "OK", IDD_OK, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 106, 8, 40, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 106, 32, 40, 14
+END
+
+SESSDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE  36, 36, 220, 118
+CAPTION "Session Settings"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    RTEXT           "Name:",-1,8,14,36,8,NOT WS_GROUP
+    EDITTEXT        IDD_NAME,48,12,160,12,ES_AUTOHSCROLL
+    RTEXT           "Script:",-1,8,26,36,8,NOT WS_GROUP
+    EDITTEXT        IDD_FILE,48,24,160,12,ES_AUTOHSCROLL
+    GROUPBOX        "&Configuration",-1,4,48,140,64,WS_GROUP
+    RTEXT           "Connection:",-1,16,62,40,8,NOT WS_GROUP
+    COMBOBOX        IDD_CONNLIST,64,61,72,50,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Emulation:",-1,16,78,40,8,NOT WS_GROUP
+    COMBOBOX        IDD_EMULLIST,64,77,72,50,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Protocol:",-1,16,94,40,8,NOT WS_GROUP
+    COMBOBOX        IDD_PROTLIST,64,93,72,50,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&Auto Connect",IDD_CONNECT,"Button",BS_AUTOCHECKBOX | 
+                    WS_GROUP | WS_TABSTOP,156,56,60,12
+    DEFPUSHBUTTON   "&OK",IDD_OK,164,77,40,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDD_CANCEL,164,96,40,14,WS_GROUP
+END
+
+NEWSESSDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE  36, 36, 220, 190
+CAPTION "Session Settings"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    GROUPBOX        "&Host Information",-1,4,8,212,48,WS_GROUP
+    RTEXT           "Name:",-1,8,22,36,8,NOT WS_GROUP
+    EDITTEXT        IDD_NAME,48,20,160,12,ES_AUTOHSCROLL
+    RTEXT           "at:",-1,8,38,36,8,NOT WS_GROUP
+    EDITTEXT        IDD_AT,48,36,160,12,ES_AUTOHSCROLL
+    GROUPBOX        "&User Information",-1,4,64,212,48,WS_GROUP
+    RTEXT           "User Id:",-1,8,78,36,8,NOT WS_GROUP
+    EDITTEXT        IDD_USERID,48,76,160,12,ES_AUTOHSCROLL
+    RTEXT           "Password:",-1,8,94,36,8,NOT WS_GROUP
+    EDITTEXT        IDD_PASSWORD,48,92,160,12,ES_AUTOHSCROLL
+    GROUPBOX        "&Configuration",-1,4,120,140,64,WS_GROUP
+    RTEXT           "Connection:",-1,16,134,40,8,NOT WS_GROUP
+    COMBOBOX        IDD_CONNLIST,64,132,72,50,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Emulation:",-1,16,150,40,8,NOT WS_GROUP
+    COMBOBOX        IDD_EMULLIST,64,148,72,50,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    RTEXT           "Protocol:",-1,16,166,40,8,NOT WS_GROUP
+    COMBOBOX        IDD_PROTLIST,64,164,72,50,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&Auto Connect",IDD_CONNECT,"Button",BS_AUTOCHECKBOX | 
+                    WS_GROUP | WS_TABSTOP,156,128,60,12
+    DEFPUSHBUTTON   "&OK",IDD_OK,164,148,40,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDD_CANCEL,164,168,40,14,WS_GROUP
+END
+
+TCPDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 200, 82
+CAPTION "Kermit TCP/IP Connection"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CTEXT           "Establishing TCP/IP Connection...",IDD_CONNMSG,8,16,184,8
+    CTEXT           "TCP/IP Connection Progress Message",IDD_CONNSTAT,8,40,184,8
+    DEFPUSHBUTTON   "Cancel",IDD_CANCEL,75,60,50,14,WS_GROUP
+END
+
+SCRIPTDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 270, 60
+CAPTION "ActiveX Script"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    LTEXT           "ActiveX Script:",-1,4,8,56,10
+    EDITTEXT        IDD_PARMS,4,18,264,12,ES_AUTOHSCROLL | WS_GROUP
+    DEFPUSHBUTTON   "&Run",IDD_RUN,15,37,50,14,WS_GROUP
+    PUSHBUTTON      "&Edit",IDD_EDIT,79,37,50,14,WS_GROUP
+    PUSHBUTTON      "&Browse...",IDD_BROWSE,143,37,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDD_CANCEL,207,37,50,14,WS_GROUP
+END
+
+EXECDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 270, 140
+CAPTION "ActiveX Statement Execution"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    LTEXT           "ActiveX Script Statements:",-1,4,8,100,10
+    EDITTEXT        IDD_PARMS,4,18,264,92,ES_AUTOHSCROLL | ES_AUTOVSCROLL | ES_MULTILINE | WS_GROUP
+    DEFPUSHBUTTON   "&Run",IDD_RUN,15,117,50,14,WS_GROUP
+    PUSHBUTTON      "Close",IDD_CANCEL,207,117,50,14,WS_GROUP
+END
+
+STATUSDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 200, 68
+CAPTION "Kermit Protocol Status"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "", IDD_ACTION, "static", SS_CENTER | WS_GROUP | WS_CHILD, 4, 8, 192, 10
+    CONTROL "Packets:", -1, "static", SS_RIGHT | WS_GROUP | WS_CHILD, 4, 24, 30, 8
+    CONTROL "", IDD_PACKETS, "static", SS_LEFT | WS_GROUP | WS_CHILD, 38, 24, 60, 8
+    CONTROL "Type:", -1, "static", SS_RIGHT | WS_GROUP | WS_CHILD, 142, 36, 28, 8
+    CONTROL "", IDD_TYPEIN, "static", SS_CENTER | WS_GROUP | WS_CHILD, 176, 24, 8, 8
+    CONTROL "/", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 184, 24, 4, 8
+    CONTROL "", IDD_TYPEOUT, "static", SS_CENTER | WS_GROUP | WS_CHILD, 188, 24, 8, 8
+    CONTROL "Bytes:", -1, "static", SS_RIGHT | WS_GROUP | WS_CHILD, 4, 36, 30, 8
+    CONTROL "", IDD_BYTES, "static", SS_LEFT | WS_GROUP | WS_CHILD, 38, 36, 60, 8
+    CONTROL "Retries:", -1, "static", SS_RIGHT | WS_GROUP | WS_CHILD, 142, 36, 28, 8
+    CONTROL "", IDD_RETRIES, "static", SS_LEFT | WS_GROUP | WS_CHILD, 176, 36, 20, 8
+    CONTROL "", IDD_MESSAGE, "static", SS_CENTER | WS_GROUP | WS_CHILD, 4, 52, 192, 8
+END
+
+SENDDLGBOX DIALOG LOADONCALL MOVEABLE DISCARDABLE 36, 36, 194, 190
+CAPTION "Send File(s)"
+STYLE WS_BORDER | WS_CAPTION | WS_DLGFRAME | WS_SYSMENU | DS_MODALFRAME | WS_POPUP
+FONT 8, "Helv"
+BEGIN
+    CONTROL "Send Queue", -1, "static", SS_LEFT | WS_CHILD, 4, 8, 42, 8
+    CONTROL "? Files", IDD_SENDCNT, "static", SS_RIGHT | WS_CHILD, 50, 8, 88, 8
+    CONTROL "", IDD_SENDLIST, "listbox", LBS_NOTIFY | LBS_EXTENDEDSEL | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD | WS_VSCROLL, 4, 17, 134, 49
+    CONTROL "&Send", IDD_SEND, "button", BS_DEFPUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 146, 16, 40, 14
+    CONTROL "Cancel", IDD_CANCEL, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 146, 34, 40, 14
+    CONTROL "&Delete", IDD_DELETE, "button", BS_PUSHBUTTON | WS_TABSTOP | WS_CHILD, 146, 52, 40, 14
+    CONTROL "File Selection", -1, "button", BS_GROUPBOX | WS_GROUP | WS_TABSTOP | WS_CHILD, 4, 70, 186, 114
+    CONTROL "&File:", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 8, 86, 16, 8
+    CONTROL "", IDD_FILE, "edit", ES_LEFT | ES_AUTOHSCROLL | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD, 26, 84, 156, 12
+    CONTROL "Directory is", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 82, 104, 40, 8
+    CONTROL "", IDD_CURDIR, "static", SS_LEFT | WS_GROUP | WS_CHILD, 122, 104, 62, 8
+    CONTROL "Files", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 8, 104, 20, 8
+    CONTROL "", IDD_FILELIST, "listbox", LBS_NOTIFY | LBS_EXTENDEDSEL | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD | WS_VSCROLL, 8, 114, 70, 65
+    CONTROL "Directories", -1, "static", SS_LEFT | WS_GROUP | WS_CHILD, 82, 120, 44, 8
+    CONTROL "", IDD_DIRLIST, "listbox", LBS_NOTIFY | WS_BORDER | WS_GROUP | WS_TABSTOP | WS_CHILD | WS_VSCROLL, 82, 130, 70, 49
+    CONTROL "&Add", IDD_ADD, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 156, 136, 30, 14
+    CONTROL "&List", IDD_LIST, "button", BS_PUSHBUTTON | WS_GROUP | WS_TABSTOP | WS_CHILD, 156, 160, 30, 14
+END
+
+
+FONTDLGBOX DIALOG 36, 36, 190, 124
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Font"
+FONT 8, "Helv"
+BEGIN
+    LTEXT           "&Font:", stc1, 6, 3, 40, 9
+    COMBOBOX        cmb1, 6, 13, 94, 54, CBS_SIMPLE | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP | CBS_HASSTRINGS | CBS_OWNERDRAWFIXED | CBS_DISABLENOSCROLL
+
+    LTEXT           "Font St&yle:", stc2, 0, 0, 0, 0, WS_DISABLED | NOT WS_VISIBLE
+    COMBOBOX        cmb2, 0, 0, 0, 0, CBS_SIMPLE | WS_VSCROLL | CBS_DISABLENOSCROLL | WS_TABSTOP | WS_DISABLED | NOT WS_VISIBLE
+
+    LTEXT           "&Size:", stc3, 106, 3, 30, 9
+    COMBOBOX        cmb3, 106, 13, 32, 54, CBS_SIMPLE | WS_VSCROLL | WS_TABSTOP | CBS_HASSTRINGS | CBS_OWNERDRAWFIXED | CBS_SORT | CBS_DISABLENOSCROLL
+
+    DEFPUSHBUTTON   "OK", IDOK, 144, 6, 40, 14, WS_GROUP | WS_TABSTOP
+    PUSHBUTTON      "Cancel", IDCANCEL, 144, 23, 40, 14, WS_GROUP | WS_TABSTOP
+    PUSHBUTTON      "&Apply", psh3, 144, 40, 40, 14, WS_GROUP | WS_TABSTOP
+    PUSHBUTTON      "&Help", pshHelp, 144, 57, 40, 14, WS_GROUP | WS_TABSTOP
+
+    GROUPBOX        "Effects", grp1, 6, 72, 84, 34, WS_GROUP | WS_DISABLED | NOT WS_VISIBLE
+    CONTROL         "Stri&keout", chx1, "Button", BS_AUTOCHECKBOX | WS_TABSTOP | WS_DISABLED | NOT WS_VISIBLE, 10, 82, 49, 10
+    CONTROL         "&Underline", chx2, "Button", BS_AUTOCHECKBOX | WS_DISABLED | NOT WS_VISIBLE, 10, 94, 51, 10
+
+    LTEXT           "&Color:", stc4, 6, 110, 30, 9,  WS_DISABLED | NOT WS_VISIBLE
+    COMBOBOX        cmb4, 6, 120, 84, 100, CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_AUTOHSCROLL | CBS_HASSTRINGS | WS_BORDER | WS_VSCROLL | WS_TABSTOP | WS_DISABLED | NOT WS_VISIBLE
+
+    GROUPBOX        "Sample", grp2, 6, 72, 178, 49, WS_GROUP
+    CTEXT           "", stc6, 12, 124, 160, 20, SS_NOPREFIX | NOT WS_GROUP
+    CTEXT           "AaBbYyZz", stc5, 12, 81, 160, 37, SS_NOPREFIX | NOT WS_VISIBLE
+END

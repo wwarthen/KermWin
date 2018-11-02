@@ -1,0 +1,9 @@
+EXPORTS
+    SetupTerm	    @100
+    WriteTerm	    @101
+    OpenTerm	    @102
+    CloseTerm	    @103
+    GetTermConfig   @105
+    ProcessTermChar @106
+    ProcessTermKey  @107
+	DoKeyMap		@108
